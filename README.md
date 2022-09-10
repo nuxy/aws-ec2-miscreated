@@ -1,10 +1,10 @@
-# aws-eb-miscreated
+# aws-ec2-miscreated
 
-Run a [Miscreated](https://miscreatedgame.com) game server in AWS [Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk).
+Run a [Miscreated](https://miscreatedgame.com) game server in a AWS [EC2](https://aws.amazon.com/ec2) instance.
 
 ## Dependencies
 
-- [EB CLI](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html)
+- [AWS CLI](https://aws.amazon.com/cli)
 
 ## Managing the game server
 
@@ -24,7 +24,7 @@ This package is maintained under the [Semantic Versioning](https://semver.org) g
 
 This package is distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose.
 
-_aws-eb-miscreated_ is provided under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php)
+_aws-ec2-miscreated_ is provided under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php)
 
 [AWS](https://aws.amazon.com) is a registered trademark of Amazon Web Services, Inc.
 
