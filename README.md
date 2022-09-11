@@ -15,6 +15,10 @@ In order to successfully deploy your application you must have [set-up your AWS 
 
 WARNING: The policies above are provided to ensure a successful EC2 deployment.  It is recommended that you adjust these policies to meet the security requirements of your game server.  They should NOT be used in a Production environment.
 
+## Performance concerns
+
+A Miscreated server can currently use _up to 4GB of RAM_ when the game is fully loaded due to dynamic allocation of asset resources.  Furthermore, an _additional 30MB of RAM_ will be allocated for each concurrent player.  This should be considered when selecting the [AMI Instance Type](https://aws.amazon.com/ec2/instance-types) since resource usage determines cost.
+
 ## Launching the EC2 instance
 
     $ aws ec2 run-instances --image-id ami-05fa00d4c63e32376 --instance-type t2.medium --region us-east-1a --block-device-mappings file://block-device-mapping.json --user-data file://user-data.sh
