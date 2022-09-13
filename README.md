@@ -29,6 +29,10 @@ The following command can be executed within the Docker container:
 
     $ service game-server {start|stop|restart}
 
+## References
+
+- [Miscreated game server list](https://servers.miscreatedgame.com)
+
 ## Contributions
 
 If you fix a bug, or have a code you want to contribute, please send a pull-request with your changes.
