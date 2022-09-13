@@ -12,6 +12,8 @@
 
 [ -d /root/.build ] && exit 0
 
+IP_ADDR=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
+
 # Install dependencies.
 yum -y install https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
 yum -y install git
@@ -22,7 +24,10 @@ service docker start && chkconfig docker on
 
 git clone --recurse-submodules https://github.com/nuxy/aws-ec2-miscreated.git /root/.build
 
-# Launch the game server.
-docker build -t steamcmd /root/.build/.docker-steamcmd-wine --build-arg APPID=302200 --build-arg RUNCMD="Bin64_dedicated/MiscreatedServer.exe +http_startserver +map islands +sv_maxplayers 10 -sv_port 27015 +sv_servername \"Miscreated\""
+# Spoof public network.
+ip a add $IP_ADDR/24 dev eth0
 
-docker run -it -p 27015:27050 -p 27015:27050/udp steamcmd
+# Launch the game server.
+docker build -t steamcmd /root/.build/.docker-steamcmd-wine --build-arg APPID=302200 --build-arg RUNCMD="Bin64_dedicated/MiscreatedServer.exe +http_startserver +map islands -sv_bind $IP_ADDR +sv_maxplayers 10 +sv_servername 'Miscreated'"
+
+docker run -d --network host steamcmd
