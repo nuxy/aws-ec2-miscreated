@@ -24,6 +24,16 @@ service docker start && chkconfig docker on
 
 git clone --recurse-submodules https://github.com/nuxy/aws-ec2-miscreated.git /root/.build
 
+# Create 4GB swapfile (support t2.medium)
+dd if=/dev/zero of=/swapfile bs=128M count=32
+
+if [ -f /swapfile ]; then
+    chmod 600 /swapfile
+    mkswap /swapfile
+    swapon -s
+    echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
+fi
+
 # Spoof public network.
 ip a add $IP_ADDR/24 dev eth0
 
