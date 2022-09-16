@@ -34,8 +34,23 @@ if [ -f /swapfile ]; then
     echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
 fi
 
-# Spoof public network.
-ip a add $IP_ADDR/24 dev eth0
+# Spoof public network (as systemd unit).
+cat << EOF > /etc/systemd/system/spoof-network.service
+[Unit]
+Description=Miscreated network issue workaround.
+After=network.target
+After=network-online.target
+
+[Service]
+ExecStart=/bin/sh -c 'exec /sbin/ip a add $IP_ADDR/24 dev eth0'
+TimeoutSec=30
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl enable spoof-network
+systemctl start spoof-network
 
 # Resolve internal DNS
 echo "nameserver  208.67.222.222" >> /etc/resolv.conf
