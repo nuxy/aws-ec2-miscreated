@@ -56,6 +56,6 @@ systemctl start spoof-network
 echo "nameserver  208.67.222.222" >> /etc/resolv.conf
 
 # Launch the game server.
-docker build -t steamcmd /root/.build/.docker-steamcmd-wine --build-arg APPID=302200 --build-arg RUNCMD="Bin64_dedicated/MiscreatedServer.exe +sv_maxplayers 10 +sv_servername 'Miscreated' +http_startserver +map islands" --build-arg HEADLESS=no
+docker build -t steamcmd /root/.build/.docker-steamcmd-wine --build-arg APPID=302200 --build-arg RUNCMD="Bin64_dedicated/MiscreatedServer.exe +sv_maxplayers 10 +sv_servername 'Miscreated' +http_startserver +map islands" --build-arg HEADLESS=no --memory-swap -1
 
 docker run -d --network host --restart always steamcmd
