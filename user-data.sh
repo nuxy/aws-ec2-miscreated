@@ -41,6 +41,6 @@ ip a add $IP_ADDR/24 dev eth0
 echo "nameserver  208.67.222.222" >> /etc/resolv.conf
 
 # Launch the game server.
-docker build -t steamcmd /root/.build/.docker-steamcmd-wine --build-arg APPID=302200 --build-arg RUNCMD="Bin64_dedicated/MiscreatedServer.exe +http_startserver +map islands -sv_bind $IP_ADDR +sv_maxplayers 10 +sv_servername 'Miscreated'" --build-arg HEADLESS=no
+docker build -t steamcmd /root/.build/.docker-steamcmd-wine --build-arg APPID=302200 --build-arg RUNCMD="Bin64_dedicated/MiscreatedServer.exe +http_startserver +map islands +sv_maxplayers 10 +sv_servername 'Miscreated'" --build-arg HEADLESS=no
 
 docker run -d --network host --restart always steamcmd
