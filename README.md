@@ -23,6 +23,10 @@ A Miscreated server can currently use _up to 4GB of RAM_ when the game is fully 
 
     $ aws ec2 run-instances --image-id ami-05fa00d4c63e32376 --instance-type t2.medium --region us-east-1a --block-device-mappings file://block-device-mapping.json --user-data file://user-data.sh --associate-public-ip-address
 
+## Logging into your server
+
+As part of the installation process an [SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/prereqs-ssm-agent.html) is added which allows you to access your server using the [Amazon EC2 Console](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html#start-ec2-console).  No SSH keys, port 22 routing necessary.
+
 ## Managing the game server
 
 The following command can be executed within the Docker container:
