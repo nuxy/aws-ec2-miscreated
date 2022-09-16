@@ -19,6 +19,10 @@ WARNING: The policies above are provided to ensure a successful EC2 deployment. 
 
 A Miscreated server can currently use _up to 4GB of RAM_ when the game is fully loaded due to dynamic allocation of asset resources.  Furthermore, an _additional 30MB of RAM_ will be allocated for each concurrent player.  This should be considered when selecting the [AMI Instance Type](https://aws.amazon.com/ec2/instance-types) since resource usage determines cost.
 
+### Reducing operation costs
+
+In order to meet the [game system requirements](#performance-concerns), while also being able to run a smaller EC2 instance type (currently `t2-medium`), as part of the build process [I allocate 4GB of swap space](https://github.com/nuxy/aws-ec2-miscreated/blob/master/user-data.sh#L28) to the host OS.  Doing so allows me to reduce my hosting costs by 50%.  That said, if your game server has a lot of users (> 50) I recommend using a larger instance type (`t2.large`) for this purpose.
+
 ## Launching the EC2 instance
 
     $ aws ec2 run-instances --image-id ami-05fa00d4c63e32376 --instance-type t2.medium --region us-east-1a --block-device-mappings file://block-device-mapping.json --user-data file://user-data.sh --associate-public-ip-address
