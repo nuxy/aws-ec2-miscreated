@@ -1,3 +1,0 @@
-[submodule ".docker-steamcmd-wine"]
-	path = .docker-steamcmd-wine
-	url = https://github.com/nuxy/docker-steamcmd-wine
