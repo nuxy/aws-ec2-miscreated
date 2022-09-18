@@ -31,6 +31,20 @@ In order to meet the [game system requirements](#performance-concerns), while al
 
 As part of the installation process an [SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/prereqs-ssm-agent.html) is added which allows you to access your server using the [Amazon EC2 Console](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html#start-ec2-console).  No SSH keys, port 22 routing necessary.
 
+### Accessing the container
+
+    $ docker exec -it <container-id> /bin/bash
+
+## Game server defaults
+
+The container comes with a vanilla installation of [Miscreated Dedicated Server](https://steamdb.info/app/302200) which is configured to support _up to 10 players_ and broadcasts the server name "Miscreated".  The server binds TCP/UDP ports 64090-64094 which will needs to be opened using [EC2 Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/working-with-security-groups.html#creating-security-group).  It also **exposes the RCON (remote control system) which is NOT password protected** and should be either disabled by removing `+http_startserver` or restricted by setting `+http_password` prior to opening these ports.
+
+To update these defaults you will need to [access the container](#accessing-the-container) and run the following command as root:
+
+    $ echo -e "HEADLESS=no\nRUNCMD=Bin64_dedicated/MiscreatedServer.exe +sv_maxplayers <max-players> +sv_servername <server-name> +http_startserver +http_password '<password>' +map islands" > /usr/games/.game-server
+
+Once updated you just need to [restart the server](#managing-the-game-server) and you're good to go.
+
 ## Managing the game server
 
 The following command can be executed within the Docker container:
