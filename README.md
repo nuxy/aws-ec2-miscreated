@@ -37,6 +37,26 @@ The following command can be executed within the Docker container:
 
     $ service game-server {start|stop|restart}
 
+## Overriding game sources
+
+In cases where you have an existing game set-up (e.g. configuration, database, workshops) follow the steps below:
+
+### Copy the files to the container
+
+    $ docker cp hosting.cfg <container-id>:/usr/games/Steam/steamapps/common/MiscreatedServer/hosting.cfg
+    $ docker cp miscreated.db <container-id>:/usr/games/Steam/steamapps/common/MiscreatedServer/miscreated.db
+
+### Update the file permissions
+
+    $ docker -it <container-id> /bin/chown games:games /usr/games/Steam/steamapps/common/MiscreatedServer/*
+    $ docker -it <container-id> /bin/chmod 666 /usr/games/Steam/steamapps/common/MiscreatedServer/miscreated.dd
+
+### Restart the game server.
+
+    $ docker -it <container-id> /usr/sbin/service game-server restart
+
+Mirroring that of the existing game directory, files that already exist will be overwritten.
+
 ## References
 
 - [Miscreated game server list](https://servers.miscreatedgame.com)
