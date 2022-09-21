@@ -16,13 +16,10 @@ IP_ADDR=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 
 # Install dependencies.
 yum -y install https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-yum -y install git
 
 amazon-linux-extras install docker
 
 service docker start && chkconfig docker on
-
-git clone --recurse-submodules https://github.com/nuxy/aws-ec2-miscreated.git /root/.build
 
 # Create 4GB swapfile (support t2.medium)
 dd if=/dev/zero of=/swapfile bs=128M count=32
