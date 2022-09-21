@@ -6,7 +6,7 @@ Run a [Miscreated](https://miscreatedgame.com) game server in a AWS [EC2](https:
 
 - [AWS CLI](https://aws.amazon.com/cli)
 
-## AWS requirements
+### AWS requirements
 
 In order to successfully deploy your application you must have [set-up your AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/gs-cli.html) and have [created an IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) with the following [policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage.html):
 
