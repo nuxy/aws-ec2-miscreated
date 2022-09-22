@@ -54,4 +54,4 @@ echo "nameserver  208.67.222.222" >> /etc/resolv.conf
 CONTAINER_ID=`docker run -d --network host --restart always marcsbrooks/docker-miscreated-server:latest`
 
 # Create game server (restart) cronjob.
-echo "0 0 * * * /bin/docker exec -it $CONTAINER_ID /usr/sbin/service game-server restart" > /var/spool/cron/root
+echo "0 0 * * * /bin/docker exec $CONTAINER_ID /usr/sbin/service game-server restart > /dev/null" > /var/spool/cron/root
