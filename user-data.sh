@@ -10,8 +10,6 @@
 #   - This script has been tested to work with RHEL & CentOS
 #   - This script must be run as root
 
-[ -d /root/.build ] && exit 0
-
 IP_ADDR=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 
 # Install dependencies.
@@ -53,8 +51,6 @@ systemctl start spoof-network
 echo "nameserver  208.67.222.222" >> /etc/resolv.conf
 
 # Launch the game server.
-docker pull marcsbrooks/docker-miscreated-server
-
 CONTAINER_ID=`docker run -d --network host --restart always marcsbrooks/docker-miscreated-server:latest`
 
 # Create game server (restart) cronjob.
