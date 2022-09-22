@@ -75,7 +75,7 @@ Mirroring that of the existing game directory, files that already exist will be 
 
 Since the performance of the game engine degrades significantly as time goes by, the game server **forces a restart every 24 hours**.  However, due to a bug in the game engine this results with the server shutting down permanently.  In order to mitigate this a cronjob has been added to the host OS that restarts the server at 0:00 UTC.
 
-To ensure both the host OS and game server are synchronized, you will need to define `schedule_shutdown_utc=0.0` in your `hosting.cfg` or `+schedule_shutdown_utc 0.0` overriding the [game server defaults](#game-server-defaults).  Failure to do so will result in the server shutting down until the next scheduled restart.
+To ensure both the host OS and game server are synchronized, you will need to define `schedule_shutdown_utc=0.0` in your _hosting.cfg_ or `+schedule_shutdown_utc 0.0` overriding the [game server defaults](#game-server-defaults).  Failure to do so will result in the server shutting down until the next scheduled restart.
 
 ## References
 
