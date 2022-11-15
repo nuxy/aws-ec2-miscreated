@@ -37,7 +37,7 @@ After=network.target
 After=network-online.target
 
 [Service]
-ExecStart=/bin/sh -c 'exec /sbin/ip a add $IP_ADDR/24 dev eth0'
+ExecStart=/bin/sh -c 'exec /sbin/ip a add $IP_ADDR/24 dev eth0 && echo "$IP_ADDR localhost" >> /etc/hosts'
 TimeoutSec=30
 
 [Install]
