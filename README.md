@@ -77,6 +77,20 @@ Since the performance of the game engine degrades significantly as time goes by,
 
 To ensure both the host OS and game server are synchronized, you will need to define `schedule_shutdown_utc=0.0` in your _hosting.cfg_ or `+schedule_shutdown_utc 0.0` overriding the [game server defaults](#game-server-defaults).  Failure to do so will result in the server shutting down until the next scheduled restart.
 
+## Troubleshooting
+
+The most common issue you will face is with **Steam UGC** availability.  For example, in the `server.log` below:
+
+```txt
+<06:52:24> [STEAM] UGC content: XXXXXXXXXX
+<06:52:24> [Game Version]: RELEASE DEDICATED SERVER
+<06:52:25> [STEAM] Download request made for content id: XXXXXXXXXX
+<06:52:25> [STEAM] Download failed for content id: XXXXXXXXXX, code: 15
+<06:52:25> [STEAM] This server will be forced to restart in 60 seconds.
+```
+
+This is likely the result of **Steam Connection Managers** [degradation](https://steamstat.us).
+
 ## References
 
 - [Miscreated game server list](https://servers.miscreatedgame.com)
