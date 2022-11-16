@@ -38,7 +38,7 @@ After=network.target
 After=network-online.target
 
 [Service]
-ExecStart=/bin/sh -c 'exec /sbin/ip a add $IP_ADDR/24 dev eth0 && echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
+ExecStart=/bin/sh -c 'exec /sbin/ip a add $IP_ADDR/24 dev eth0 && echo "$IP_ADDR $HOSTNAME" >> /etc/hosts'
 TimeoutSec=30
 
 [Install]
@@ -47,9 +47,6 @@ EOF
 
 systemctl enable spoof-network
 systemctl start spoof-network
-
-# Resolve internal DNS
-echo "nameserver  208.67.222.222" > /etc/resolv.conf
 
 # Launch the game server.
 CONTAINER_ID=`docker run -d --network host --restart always marcsbrooks/docker-miscreated-server:latest`
