@@ -48,7 +48,7 @@ Due to [recent changes](https://twitter.com/miscreatedgame/status/16155157309294
 
 To update these defaults you will need to [access the container](#accessing-the-container) and run the following command as root:
 
-    $ echo -e "HEADLESS=no\nRUNCMD=Bin64_dedicated/MiscreatedServer.exe +sv_maxplayers <max-players> +sv_servername <server-name> +http_startserver +http_password '<password>' +map islands" > /usr/games/.game-server
+    $ echo -e "HEADLESS=no\nRUNCMD=Bin64_dedicated/MiscreatedServer.exe -sv_bind <ip-address> +sv_maxplayers <max-players> +sv_servername '<server-name>' +http_startserver +http_password '<password>' +map islands" > /usr/games/.game-server
 
 Once updated you just need to [restart the server](#managing-the-game-server) and you're good to go.
 
