@@ -39,6 +39,13 @@ As part of the installation process an [SSM Agent](https://docs.aws.amazon.com/s
 
 The container comes with a vanilla installation of [Miscreated Dedicated Server](https://steamdb.info/app/302200) which is configured to support _up to 10 players_ and broadcasts the server name "Miscreated".  The server binds TCP/UDP ports 64090-64094 which will needs to be opened using [EC2 Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/working-with-security-groups.html#creating-security-group).  It also **exposes the RCON (remote control system) which is NOT password protected** and should be either disabled by removing `+http_startserver` or restricted by setting `+http_password` prior to opening these ports.
 
+### Miscreated (Patch 1.18.1)
+
+Due to [recent changes](https://twitter.com/miscreatedgame/status/1615515730929410050) in the network stack the following items **must be addressed** prior to starting the server:
+
+1. You **must provide the external IP address** during runtime using `-sv_bind <ip-address>` or the server will fail to initialize.
+2. You can no longer override `+sv_servername` in your `hosting.cfg` since this will always use the runtime defined value.
+
 To update these defaults you will need to [access the container](#accessing-the-container) and run the following command as root:
 
     $ echo -e "HEADLESS=no\nRUNCMD=Bin64_dedicated/MiscreatedServer.exe +sv_maxplayers <max-players> +sv_servername <server-name> +http_startserver +http_password '<password>' +map islands" > /usr/games/.game-server
