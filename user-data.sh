@@ -23,8 +23,8 @@ amazon-linux-extras install docker
 
 service docker start && chkconfig docker on
 
-# Create 4GB swapfile (support t2.medium)
-dd if=/dev/zero of=/swapfile bs=128M count=32
+# Create 8GB swapfile (support t3.medium)
+dd if=/dev/zero of=/swapfile bs=128M count=64
 
 if [ -f /swapfile ]; then
     chmod 600 /swapfile
@@ -64,3 +64,6 @@ rm -f /tmp/.game-server
 
 # Create game server (restart) cronjob.
 echo "0 0 * * * /bin/docker exec $CONTAINER_ID /usr/sbin/service game-server restart > /dev/null" > /var/spool/cron/root
+
+# Restart the instance.
+shutdown -r now
