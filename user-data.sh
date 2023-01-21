@@ -10,6 +10,9 @@
 #   - This script has been tested to work with RHEL & CentOS
 #   - This script must be run as root
 
+# Concurrent player total.
+MAX_PLAYERS=10
+
 IP_ADDR=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 HOSTNAME=`curl http://169.254.169.254/latest/meta-data/local-hostname`
 
@@ -52,9 +55,8 @@ systemctl start spoof-network
 CONTAINER_ID=`docker run -d --network host --restart always marcsbrooks/docker-miscreated-server:latest`
 
 # Miscreated (Patch 1.18.1) workaround.
-RUNCMD="Bin64_dedicated/MiscreatedServer.exe -sv_bind $IP_ADDR +sv_servername Miscreated +sv_maxplayers 30 +http_startserver +map islands"
-
-echo "HEADLESS=yes\nRUNCMD=\$(cat <<EOL\n$RUNCMD\nEOL\n)" > /tmp/.game-server
+RUNCMD="Bin64_dedicated/MiscreatedServer.exe -sv_bind $IP_ADDR +sv_servername 'Miscreated' +sv_maxplayers $MAX_PLAYERS +http_startserver +map islands"
+echo -e "HEADLESS=yes\nRUNCMD=\"$RUNCMD\"" > /tmp/.game-server
 
 docker cp /tmp/.game-server $CONTAINER_ID:/usr/games
 
