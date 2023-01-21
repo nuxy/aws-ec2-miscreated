@@ -45,6 +45,7 @@ Due to [recent changes](https://twitter.com/miscreatedgame/status/16155157309294
 
 1. You **must provide the external IP address** during runtime using `-sv_bind <ip-address>` or the server will fail to initialize.
 2. You can no longer override `+sv_servername` in your `hosting.cfg` file since this will always use the runtime defined value.
+3. If you are using Steam UGC content **you must omit** `-sv_bind <ip-address>` from runtime options.
 
 To update these defaults you will need to [access the container](#accessing-the-container) and run the following command as root:
 
