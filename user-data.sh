@@ -63,7 +63,7 @@ docker cp /tmp/.game-server $CONTAINER_ID:/usr/games
 rm -f /tmp/.game-server
 
 # Create game server (restart) cronjob.
-echo "0 0 * * * /bin/docker exec $CONTAINER_ID /usr/sbin/service game-server restart > /dev/null" > /var/spool/cron/root
+echo "0 0 * * * /bin/docker restart $CONTAINER_ID > /dev/null" > /var/spool/cron/root
 
 # Restart the instance.
 shutdown -r now
