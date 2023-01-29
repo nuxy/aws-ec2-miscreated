@@ -39,7 +39,7 @@ As part of the installation process an [SSM Agent](https://docs.aws.amazon.com/s
 
 The container comes with a vanilla installation of [Miscreated Dedicated Server](https://steamdb.info/app/302200) which is configured to support _up to 10 players_ and broadcasts the server name "Miscreated".  The server binds TCP/UDP ports 64090-64094 which needs to be opened using [EC2 Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/working-with-security-groups.html#creating-security-group).  Furthermore, it also **exposes the RCON (remote control system) which is NOT password protected** and should either be disabled by removing the `+http_startserver` runtime option or restricted by setting `http_password` in your `hosting.cfg` file.
 
-### Miscreated (Patch 1.18.1, v1.0.1.1126)
+### Miscreated (Patch 1.18.x, >= v1.0.1.1126)
 
 Due to [recent changes](https://twitter.com/miscreatedgame/status/1615515730929410050) in the network stack the following items **must be addressed** prior to starting the server:
 
