@@ -54,16 +54,26 @@ systemctl start spoof-network
 # Launch the game server.
 CONTAINER_ID=`docker run -d --network host --restart always marcsbrooks/docker-miscreated-server:latest`
 
-# Miscreated (Patch 1.18.1) workaround.
+#
+# Miscreated (Patch 1.18.x) workarounds.
+#
+
+# Set IP address (non-UGC default).
 RUNCMD="Bin64_dedicated/MiscreatedServer.exe -sv_bind $IP_ADDR +sv_servername 'Miscreated' +sv_maxplayers $MAX_PLAYERS +http_startserver +map islands"
 echo -e "HEADLESS=yes\nRUNCMD=\"$RUNCMD\"" > /tmp/.game-server
 
-docker cp /tmp/.game-server $CONTAINER_ID:/usr/games
+docker cp /tmp/.game-server $CONTAINER_ID:/usr/games && rm -f /tmp/.game-server
 
-rm -f /tmp/.game-server
+# Create game server cron tasks.
+cat << EOF > /var/spool/cron/root
+CONTAINER_ID=$CONTAINER_ID
 
-# Create game server (restart) cronjob.
-echo "0 0 * * * /bin/docker restart $CONTAINER_ID > /dev/null" > /var/spool/cron/root
+# Restart the server.
+0 0 * * * /bin/docker restart \$CONTAINER_ID > /dev/null
+
+# Keep-alive process.
+* * * * * if [ ! \$(pgrep Miscreated) ]; then /bin/docker restart \$CONTAINER_ID > /dev/null; fi
+EOF
 
 # Restart the instance.
 shutdown -r now
