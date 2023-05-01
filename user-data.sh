@@ -10,6 +10,9 @@
 #   - This script has been tested to work with RHEL & CentOS
 #   - This script must be run as root
 
+# Network device (Linux 1/2: eth0 | Linux 3: ens5)
+NET_DEV="eth0"
+
 # Concurrent player total.
 MAX_PLAYERS=10
 
@@ -40,7 +43,7 @@ After=network.target
 After=network-online.target
 
 [Service]
-ExecStart=/bin/sh -c 'exec /sbin/ip a add $IP_ADDR/24 dev eth0 && echo "$IP_ADDR $HOSTNAME" >> /etc/hosts'
+ExecStart=/bin/sh -c 'exec /sbin/ip a add $IP_ADDR/24 dev $NET_DEV && echo "$IP_ADDR $HOSTNAME" >> /etc/hosts'
 TimeoutSec=30
 
 [Install]
