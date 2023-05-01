@@ -10,11 +10,11 @@
 #   - This script has been tested to work with RHEL & CentOS
 #   - This script must be run as root
 
-# Network device (Linux 1/2: eth0 | Linux 3: ens5)
-NET_DEV="eth0"
-
 # Concurrent player total.
 MAX_PLAYERS=10
+
+# Network device (Linux 1/2: eth0 | Linux 2023: ens5)
+NET_DEV="eth0"
 
 IP_ADDR=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 HOSTNAME=`curl http://169.254.169.254/latest/meta-data/local-hostname`
@@ -22,6 +22,10 @@ HOSTNAME=`curl http://169.254.169.254/latest/meta-data/local-hostname`
 # Install dependencies.
 yum -y install https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
 yum -y install docker
+
+if [ "$NET_DEV" = "ens5" ]; then
+  yum -y install cronie cronie-anacron
+fi
 
 service docker start && chkconfig docker on
 
@@ -43,7 +47,7 @@ After=network.target
 After=network-online.target
 
 [Service]
-ExecStart=/bin/sh -c 'exec /sbin/ip a add $IP_ADDR/24 dev $NET_DEV && echo "$IP_ADDR $HOSTNAME" >> /etc/hosts'
+ExecStart=/bin/sh -c '/sbin/ip a add $IP_ADDR/24 dev $NET_DEV && echo "$IP_ADDR $HOSTNAME" >> /etc/hosts'
 TimeoutSec=30
 
 [Install]
