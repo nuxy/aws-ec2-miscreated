@@ -18,8 +18,7 @@ HOSTNAME=`curl http://169.254.169.254/latest/meta-data/local-hostname`
 
 # Install dependencies.
 yum -y install https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-
-amazon-linux-extras install docker
+yum -y install docker
 
 service docker start && chkconfig docker on
 
