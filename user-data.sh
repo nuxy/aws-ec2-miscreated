@@ -55,7 +55,6 @@ WantedBy=multi-user.target
 EOF
 
 systemctl enable spoof-network
-systemctl start spoof-network
 
 # Launch the game server.
 CONTAINER_ID=`docker run -d --network host --restart always marcsbrooks/docker-miscreated-server:latest`
@@ -78,7 +77,7 @@ CONTAINER_ID=$CONTAINER_ID
 0 0 * * * /bin/docker restart \$CONTAINER_ID > /dev/null
 
 # Keep-alive process.
-* * * * * if [ ! \$(pgrep Miscreated) ]; then /bin/docker restart \$CONTAINER_ID > /dev/null; fi
+* * * * * if [ ! \$(pgrep -f Miscreated) ]; then /bin/docker restart \$CONTAINER_ID > /dev/null; fi
 EOF
 
 # Restart the instance.
