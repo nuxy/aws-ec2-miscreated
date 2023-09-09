@@ -21,11 +21,17 @@ A Miscreated server can currently use _up to 4GB of RAM_ when the game is fully 
 
 ### Reducing operation costs
 
-In order to meet the [game system requirements](#performance-concerns), while also being able to run a smaller EC2 instance type (currently `t3.medium`), as part of the build process [I allocate 8GB of swap space](https://github.com/nuxy/aws-ec2-miscreated/blob/master/user-data.sh#L28) to the host OS.  Doing so allows me to reduce my hosting costs by 50%.  That said, if your game server has a lot of users (> 50) I recommend using a larger instance type (`t3.large`) for this purpose.
+In order to meet the [game system requirements](#performance-concerns), while also being able to run a smaller EC2 instance type (currently `t3.small`), as part of the build process [I allocate 8GB of swap space](https://github.com/nuxy/aws-ec2-miscreated/blob/master/user-data.sh#L28) to the host OS.  Doing so allows me to reduce my hosting costs by 70%.. That said, I have created the chart below to be used as a guide in the EC2 instance selection process.
+
+| Total users | Instance type | Volume (size/type) |
+|-------------|---------------|--------------------|
+| 1  to 10    | `t3.small`    | 30 GB / [gp2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html#vol-type-ssd) |
+| 11 to 50    | `t3.medium`   | 30 GB / gp2        |
+| > 50        | `t3.large`    | 30 GB / gp2        |
 
 ## Launching the EC2 instance
 
-    $ aws ec2 run-instances --image-id ami-05fa00d4c63e32376 --instance-type t3.medium --region us-east-1a --block-device-mappings file://block-device-mapping.json --user-data file://user-data.sh --associate-public-ip-address
+    $ aws ec2 run-instances --image-id ami-05fa00d4c63e32376 --instance-type t3.small --region us-east-1a --block-device-mappings file://block-device-mapping.json --user-data file://user-data.sh --associate-public-ip-address
 
 ## Logging into your server
 
