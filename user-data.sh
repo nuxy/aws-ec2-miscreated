@@ -14,7 +14,7 @@
 MAX_PLAYERS=10
 
 # Network device (Linux 1/2: eth0 | Linux 2023: ens5)
-NET_DEV="eth0"
+NET_DEV="ens5"
 
 IP_ADDR=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 HOSTNAME=`curl http://169.254.169.254/latest/meta-data/local-hostname`
