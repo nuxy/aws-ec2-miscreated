@@ -25,6 +25,9 @@ yum -y install docker
 
 if [ "$NET_DEV" = "ens5" ]; then
   yum -y install cronie cronie-anacron
+
+  systemctl enable crond.service
+  systemctl start crond.service
 fi
 
 service docker start && chkconfig docker on
@@ -77,7 +80,7 @@ CONTAINER_ID=$CONTAINER_ID
 0 0 * * * /bin/docker restart \$CONTAINER_ID > /dev/null
 
 # Keep-alive process.
-* * * * * if [ ! \$(pgrep -f Miscreated) ]; then /bin/docker restart \$CONTAINER_ID > /dev/null; fi
+* * * * * if [[ ! \$(pgrep -f Miscreated) ]]; then /bin/docker restart \$CONTAINER_ID > /dev/null; fi
 EOF
 
 # Restart the instance.
